@@ -1,0 +1,66 @@
+.subHeader {
+	color:#dcd9d5;
+	font-weight:300;
+}
+
+.subHeader h1 {
+	font-size:40px;
+	font-weight:400;
+}
+
+.subHeader p {
+	font-size:24px;
+}
+
+.mainText {
+	width:90%;
+	margin:0 auto;
+}
+
+/* Display Body */
+
+.displayBody {
+	overflow:hidden;
+}
+
+.displayBody > div {
+	display:block;
+}
+
+.displayMain {
+	width:100%;
+}
+
+.displaySide {
+	width:100%;
+	margin-top:50px;
+	background-color:#352d39;
+    padding-bottom:30px;
+    border-top:5px solid #dcd9d5;
+    border-bottom:5px solid #dcd9d5;
+}
+
+.displaySide > div {
+	width:90%;
+    margin:0 auto;
+    color:#dcd9d5;
+}
+
+@media only screen and (min-width:900px) {
+
+    .displayBody > div {
+		display:inline-block;
+		vertical-align: top;
+	}
+
+	.displayMain {
+		width:74%;
+	}
+
+	.displaySide {
+		margin-top:0px;
+		float:right;
+		width:24%;
+	}
+
+}

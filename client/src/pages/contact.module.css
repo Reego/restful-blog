@@ -1,0 +1,19 @@
+.contact {
+	width:90%;
+	margin:0 auto;
+	color:#dcd9d5;
+}
+
+.contact h1 {
+	font-size:40px;
+}
+
+.contact a {
+	font-size:20px;
+	color:#dcd9d5;
+	text-decoration: none;
+}
+
+.contact p {
+	line-height:35px;
+}
