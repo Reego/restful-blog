@@ -6,8 +6,6 @@ import Post from './post';
 
 import style from './layout.module.css';
 
-import AdminHeader from '../admin/adminHeader';
-
 const Break = ({ h }) => (
 	<div style={{
 		width:'100%',
