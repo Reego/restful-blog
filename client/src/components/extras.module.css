@@ -70,6 +70,11 @@
     cursor:pointer;
     color:#fffcf9;
     text-decoration:none;
+    display:inline-block;
+}
+
+.postWrap .postTag {
+    margin-top:12px;
 }
 
 .postTag:not(:first-child) {
@@ -115,4 +120,36 @@
     width:90%;
     display:block;
     margin:0 auto;
+}
+
+@media only screen and (max-width:500px) {
+
+    /* Header */
+
+    .header a, .header > span:first-child {
+        padding:0 15px;
+        font-size:16px;
+    }
+
+    .header > span:first-child {
+        font-size:22px;
+    }
+
+    .postTitle {
+        font-size:26px;
+    }
+
+    .postContent {
+        font-size:18px;
+    }
+
+    .postTag {
+        font-size:16px;
+    }
+
+    /* Footer */
+
+    .standalonePost {
+        font-size:18px;
+    }
 }

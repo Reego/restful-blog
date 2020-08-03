@@ -38,8 +38,7 @@ const MainPanel = ({ post, onClickTag }) => {
 	if(post) {
 		return <div className={extrasStyle.postWrap}>
 			<Break h='20'/>
-			<div className={extrasStyle.standalonePost}>{ post.content }
-			</div>
+			<div className={extrasStyle.standalonePost} dangerouslySetInnerHTML={{  __html: post.content }}></div>
 			<Break h='40'/>
 			<div>{tagComponents}</div>
 		</div>

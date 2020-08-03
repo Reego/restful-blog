@@ -64,3 +64,14 @@
 	}
 
 }
+
+@media only screen and (max-width:500px) {
+
+	.subHeader h1 {
+		font-size:30px;
+	}
+
+	.subHeader p {
+		font-size:22px;
+	}
+}

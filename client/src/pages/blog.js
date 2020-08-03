@@ -148,12 +148,12 @@ const Blog = (props) => {
                     <label className={style.postLabel}>Title</label>
                     <Break h='30'/>
 
-                    <label>Descending</label>
+                    <label>Desc.</label>
                     <label className={style.toggle}>
                         <input name='descending' type='checkbox' defaultChecked={!filters.descending}/>
                         <span className={style.slider}></span>
                     </label>
-                    <label className={style.postLabel}>Ascending</label>
+                    <label className={style.postLabel}>Asc.</label>
                     <Break h='55'/>
 
                     <div className={style.submitButton} onClick={onSubmit}>Search</div>

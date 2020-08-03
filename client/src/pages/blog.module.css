@@ -154,3 +154,28 @@ select:hover {
 	width:90%;
 	margin:0 auto;
 }
+
+@media only screen and (max-width:500px) {
+
+	.form h1 {
+		font-size:30px;
+	}
+
+	.form label:not(.toggle) {
+		display:inline-block;
+		width:9%;
+		font-size:18px;
+	}
+
+	.form input[type='text'], select {
+		font-size:18px;
+	}
+
+	.submitButton {
+		font-size:16px;
+	}
+
+	.nextButton {
+		font-size:16px;
+	}
+}

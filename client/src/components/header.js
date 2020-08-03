@@ -7,9 +7,8 @@ const Header = () => (
     <div className={style.header}>
     	<span>reegodev</span>
         <Link to='/'>home</Link>
-        <Link to='/blog'>blog</Link>
+        <Link to='/blog'>posts</Link>
         <Link to='/contact'>contact</Link>
-        <a href='https://github.com/Reego'>github</a>
     </div>
 );
 

@@ -7,10 +7,22 @@ import { Break } from './layout';
 import Tag from './tag';
 
 const getPostPath = (title, date) => {
-    return 'post/' + title.replace(/ /g, '_').replace(/[^(a-z|_)]/gi, '').substring(0, 10) + '_' + date.substring(0, 10);
+    return '/post/' + title.replace(/ /g, '_').replace(/[^(a-z|_)]/gi, '').substring(0, 10) + '_' + date.substring(0, 10);
 };
 
-const Post = ({ post, onClickTag=null, contentCutoff=200}) => {
+const Post = ({ post, onClickTag=null, contentCutoff=650}) => {
+
+    if(!post) {
+        return (
+            <React.Fragment>
+                <div className={style.postWrap}>
+                    <div className={style.post}>
+                        <h1 className={style.postTitle}>This post is loading, please wait a moment...</h1>
+                    </div>
+                </div>
+            </React.Fragment>
+        );
+    }
 
     const tagComponents = [];
 
@@ -22,7 +34,6 @@ const Post = ({ post, onClickTag=null, contentCutoff=200}) => {
 
     let linkToMaximized = contentCutoff > 0;
     let content = (linkToMaximized && post.content.length > contentCutoff) ? (post.content.substring(0, contentCutoff) + '...') : post.content;
-
     return (
         <React.Fragment>
         	<div className={style.postWrap}>
@@ -32,7 +43,7 @@ const Post = ({ post, onClickTag=null, contentCutoff=200}) => {
                         <h1 className={style.postTitle}>{ post.title }</h1>
                     }
 	                <h3 className={style.postDate}>Posted on { post.date.substring(0, 10) }</h3>
-	                <div className={style.postContent}>{ content }</div>
+	                <div className={style.postContent} dangerouslySetInnerHTML={{ __html: content }}></div>
                     { tagComponents.length > 0 &&
                         <React.Fragment>
                             <Break h='30'/>
