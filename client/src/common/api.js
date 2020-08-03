@@ -5,25 +5,27 @@ const defaultHeaders = {
     // 'Accept': 'application/json',
 };
 
-const apiCacheItemDuration = 36000000; /// 10 hours -> I won't be updating the blog too often
+const API_CACHE_ITEM_DURATION = 36000000; /// 10 hours -> I won't be updating the blog too often
 
 const objectToQueryString = (obj) => Object.keys(obj).map(key => key + '=' + obj[key]).join('&');
 
-const updateApiCache(apiPath, value) {
-    const apiCache = localStorage.getItem("apiCache");
-    localStorage.setItem("apiCache", {
+/// updates the apiCache found in localStorage at the given key (apiPath) with the value parameter
+const updateApiCache = (apiPath, value) => {
+    const apiCache = JSON.parse(localStorage.getItem("apiCache")) || {};
+    localStorage.setItem("apiCache", JSON.stringify({
         ...apiCache,
         [apiPath]: {
             time: (new Date()).getTime(),
             value,
         },
-    });
+    }));
 }
 
-const removeApiCacheValue(apiPath) {
-    const apiCache = localStorage.getItem("apiCache");
+/// removes item with given apiPath as key from apiCache object in localStorage
+const removeApiCacheValue = (apiPath) => {
+    const apiCache = JSON.parse(localStorage.getItem("apiCache"));
     delete apiCache[apiPath];
-    localStorage.setItem("apiCache", apiCache);
+    localStorage.setItem("apiCache", JSON.stringify(apiCache));
 }
 
 const apiCall = (path, payload={}, requestObject={}) => {
@@ -34,16 +36,19 @@ const apiCall = (path, payload={}, requestObject={}) => {
         finalPath += '?' + objectToQueryString(payload);
     }
 
-    const apiCache = localStorage.getItem("apiCache");
-    const cachedRequest = apiCache[finalPath];
-    const accessTime = (new Date()).getTime();
-    if(cachedRequest !== undefined)
-        if (cachedRequest.time && accessTime - cachedRequest.time <= apiCacheItemDuration
-        && cachedRequest.value) {
-            return Promise.resolve(cachedRequest.value);
-        }
-        else {
-            removeApiCacheValue(apiPath);
+    /// checks cache for recent api calls
+    const apiCache = JSON.parse(localStorage.getItem("apiCache"));
+    if(apiCache) {
+        const cachedRequest = apiCache[finalPath];
+        const accessTime = (new Date()).getTime();
+        if(cachedRequest !== undefined) {
+            if (cachedRequest.time && accessTime - cachedRequest.time <= API_CACHE_ITEM_DURATION
+            && cachedRequest.value) {
+                return Promise.resolve(cachedRequest.value);
+            }
+            else {
+                removeApiCacheValue(apiPath);
+            }
         }
     }
 
@@ -67,12 +72,13 @@ const apiCall = (path, payload={}, requestObject={}) => {
         //     ...defaultHeaders,
         // };
     }
-    return fetch(finalPath, request)
-        .then(response => {
-            const responseObject = response.json();
-            updateApiCache(finalPath, responseObject);
-            return responseObject;
-        });
+    return (fetch(finalPath, request)
+        .then(response => response.json())
+        .then(res => {
+            updateApiCache(finalPath, res);
+            return res;
+        })
+    );
 };
 
 const apiPath = process.env.REACT_APP_API_URL;
